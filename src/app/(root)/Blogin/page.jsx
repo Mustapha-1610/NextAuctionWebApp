@@ -20,6 +20,7 @@ export default function Blogin() {
     e.preventDefault();
     const res = await login({ Email, Password });
     dispatch(setBidderCredentials({ ...res.data.bidder }));
+    router.push("/bidder/profile");
     console.log(res);
   };
   return (
