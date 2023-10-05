@@ -9,7 +9,6 @@ export default function AuctionInfo() {
   return (
     <>
       <h1>Profile</h1>
-      {bidderinfo}
       <button
         onClick={() => {
           dispatch(bidderLogout());
