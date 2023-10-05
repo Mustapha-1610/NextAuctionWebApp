@@ -112,7 +112,7 @@ const bidderSchema = new Schema({
   ],
   ProfilePicture: {
     type: String,
-    defualt:
+    default:
       "https://firebasestorage.googleapis.com/v0/b/tunibids.appspot.com/o/Windows_10_Default_Profile_Picture.svg.png?alt=media&token=e7aca30d-6eea-45ff-8522-db048fcb8c38",
   },
 });

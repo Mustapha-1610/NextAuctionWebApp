@@ -1,21 +1,11 @@
 "use client";
-import { useSelector, useDispatch } from "react-redux";
-import { bidderLogout } from "@/redux/authslice";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-export default function AuctionInfo() {
-  const router = useRouter();
-  const dispatch = useDispatch();
+import { useDispatch, useSelector } from "react-redux";
+export default function Profile() {
+  const bidder = useSelector((state) => state.bidderData?.bidderInfo);
+
   return (
     <>
-      <h1>Profile</h1>
-      <button
-        onClick={() => {
-          dispatch(bidderLogout());
-        }}
-      >
-        Click
-      </button>
+      <h1>Hello {bidder?.Name}</h1>
     </>
   );
 }

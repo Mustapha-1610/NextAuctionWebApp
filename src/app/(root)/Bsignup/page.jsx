@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
-import { useBiddersignupMutation } from "../../redux/usersApiSlices";
+import { useBiddersignupMutation } from "../../../redux/BidderSlices/bidderApiSlice";
 const SignupPage = () => {
   const [signup, { isLoading }] = useBiddersignupMutation();
   const [form, setForm] = useState({

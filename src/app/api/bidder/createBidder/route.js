@@ -1,7 +1,8 @@
 import { connect } from "@/db/dbConfig.js";
 import bidder from "@/modals/usersModals/bidder.js";
 import { NextRequest, NextResponse } from "next/server";
-
+import { sendBidderConfirmationEmail } from "@/Helpers/NodeMailer/BidderMailer";
+import bcrypt from "bcryptjs";
 connect();
 
 export async function POST(request) {
@@ -31,22 +32,41 @@ export async function POST(request) {
     ) {
       return NextResponse.json({ message: "Missing input" });
     }
-    let existingBidder = await bidder.create({
+    let existingBidder = await bidder.findOne({
+      $or: [{ Email }, { PhoneNumber }],
+    });
+    if (existingBidder) {
+      return NextResponse.json({ message: "Account Exists Allready !" });
+    }
+    const securePassword = bcrypt.hashSync(Password);
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let ActivationCode = "";
+    for (let i = 0; i < 25; i++) {
+      ActivationCode +=
+        characters[Math.floor(Math.random() * characters.length)];
+    }
+    existingBidder = await bidder.create({
       Name,
       Surname,
       Email,
-      Password,
+      Password: securePassword,
       State,
       City,
       FullAdress,
       PhoneNumber,
       BirthDate,
+      ActivationCode,
     });
-    existingBidder.save();
-    return NextResponse.json(
-      { Message: "Account Created Successfully" },
-      { status: 201 }
+    sendBidderConfirmationEmail(
+      existingBidder.Name,
+      existingBidder.Email,
+      existingBidder._id,
+      existingBidder.ActivationCode
     );
+    return NextResponse.json({
+      success: "Account successfully created. Verification email sent.",
+    });
   } catch (err) {
     console.log(err);
     return NextResponse.json({ error: "ServerError !" }, { status: 500 });

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//
 const biddersInitialState = {
   bidderInfo:
     typeof window !== "undefined" && localStorage.getItem("bidderInfo")
@@ -18,15 +17,12 @@ const bidderSlice = createSlice({
     },
     bidderLogout: (state, action) => {
       state.bidderInfo = null;
+      state.bidderSocket = null;
       localStorage.removeItem("bidderInfo");
-    },
-    setBidderSocket: (state, action) => {
-      state.bidderSocket = action.payload;
     },
   },
 });
 
-export const { setBidderCredentials, bidderLogout, setBidderSocket } =
-  bidderSlice.actions;
+export const { setBidderCredentials, bidderLogout } = bidderSlice.actions;
 
 export const bidderReducer = bidderSlice.reducer;

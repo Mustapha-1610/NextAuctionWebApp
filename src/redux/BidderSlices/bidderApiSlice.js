@@ -1,7 +1,12 @@
-import { apiSlice } from "./apislice";
+import { apiSlice } from "../apislice.js";
+const USERS_URL = "/api/users";
+const Admin_URL = "/api/admin";
 const Bidder_URL = "/api/bidder";
+const Seller_URL = "/api/seller";
+const AuctionListing_URL = "/api/auctionlisting";
+const AuctionRoom_URL = "/api/auctionroom";
 
-export const bidderApiSlice = apiSlice.injectEndpoints({
+export const biddersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUpdatedBidderInfo: builder.mutation({
       query: () => ({
@@ -16,9 +21,16 @@ export const bidderApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    bidderLogout: builder.mutation({
+      query: (data) => ({
+        url: `${Bidder_URL}/logout`,
+        method: "GET",
+        body: data,
+      }),
+    }),
     biddersignup: builder.mutation({
       query: (data) => ({
-        url: `${Bidder_URL}/createBidder`,
+        url: `${Bidder_URL}/create`,
         method: "POST",
         body: data,
       }),
@@ -123,4 +135,24 @@ export const bidderApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useBiddersignupMutation } = bidderApiSlice;
+export const {
+  useGetUpdatedBidderInfoMutation,
+  useBidderloginMutation,
+  useBiddersignupMutation,
+  useBidderActivationMutation,
+  useSendBidderActivationMailMutation,
+  useEditBidderInformationsMutation,
+  useGetLatestAuctionsQuery,
+  useGetAuctionMutation,
+  useAuctionParticipationMutation,
+  useAuctionUnparticipationMutation,
+  useGetAllOnoingAuctionsQuery,
+  useGetAllCompletedAuctionsQuery,
+  useBidderGetFinicheAuctionsMutation,
+  useBidderLogoutMutation,
+  useBidderGetWonAuctionsMutation,
+  useBidderGetOngoingAuctionsMutation,
+  useBidderSendStartingNotificationsMutation,
+  useBidderGetAuctionRoomInfoMutation,
+  useBidderUpdateAuctionRoomMutation,
+} = biddersApiSlice;

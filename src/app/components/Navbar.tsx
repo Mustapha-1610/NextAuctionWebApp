@@ -1,14 +1,16 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import BidderNavbar from "@/app/bidder/components/bidderNavbar";
+import { useSelector } from "react-redux";
+import LandingNavbar from "@/app/(root)/components/LandingNavbar";
 export default function Navbar() {
-  return (
-    <>
-      <Link href="/">Home</Link>
-      <Link href="/ongoing"> Ongoing </Link>
-      <Link href="/finiched">Finiched </Link>
-      <Link href="/howitworks">How it Works </Link>
-      <Link href="/bidderLogin">Login </Link>
-    </>
-  );
+  const bidder = useSelector((state: any) => state.bidderData?.bidderInfo);
+  const [navComponent, setNavComponent] = useState(<LandingNavbar />);
+  useEffect(() => {
+    bidder
+      ? setNavComponent(<BidderNavbar />)
+      : setNavComponent(<LandingNavbar />);
+  }, [bidder]);
+  return <>{navComponent}</>;
 }

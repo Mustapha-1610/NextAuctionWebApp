@@ -1,27 +1,45 @@
 import { connect } from "@/db/dbConfig.js";
 import bidder from "@/modals/usersModals/bidder.js";
 import { NextRequest, NextResponse } from "next/server";
-import bcryptjs from "bcryptjs";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
 connect();
 
 export async function POST(request) {
   try {
+    console.log("hello");
     const reqbody = await request.json();
 
     const { Email, Password, PhoneNumber } = reqbody;
 
     let BidderAccount;
     if ((!Email && !Password) || (!PhoneNumber && !Password)) {
-      return res.status(401).json({ Message: "Invalid Input" });
+      return NextResponse.json({ error: "Invalid Input" });
     } else if (!Email) {
       BidderAccount = await bidder.findOne({ PhoneNumber });
     } else {
       BidderAccount = await bidder.findOne({ Email });
     }
     if (!BidderAccount) {
-      return res.status(404).json({ Message: "Account Dosent Exist" });
+      return NextResponse.json({ error: "Account Dosent Exist" });
+    }
+    const passwordcheck = bcrypt.compareSync(Password, BidderAccount.Password);
+    if (!passwordcheck) {
+      return NextResponse.json({
+        Message: "Invalid email or password !",
+      });
+    }
+    if (BidderAccount.ActivationStatus === false) {
+      return NextResponse.json({
+        mailError: "You need to verify your email first before logging in !",
+        Name: BidderAccount.Name,
+        Email: BidderAccount.Email,
+        _id: BidderAccount._id,
+        ActivationCode: BidderAccount.ActivationCode,
+      });
+    }
+    if (BidderAccount.ActivenessStatus === false) {
+      res.status(401).json({ Message: "This Account Is Disabled" });
     }
     const tokenData = {
       id: BidderAccount._id,
@@ -32,9 +50,10 @@ export async function POST(request) {
     });
     const response = NextResponse.json({
       message: "Login successful",
+      bidder: BidderAccount,
       success: true,
     });
-    response.cookies.set("token", token, {
+    response.cookies.set("bidder", token, {
       httpOnly: true,
     });
     return response;
