@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { io } from "socket.io-client";
-export default function bidderlogin() {
+export default function Bidderlogin() {
   const [Email, setEmail] = useState("");
 
   const [Password, setPassword] = useState("");
