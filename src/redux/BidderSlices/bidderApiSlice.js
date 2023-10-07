@@ -132,6 +132,20 @@ export const biddersApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    bidderGoogleAuth: builder.mutation({
+      query: (data) => ({
+        url: `${Bidder_URL}/googleAuth`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    bidderGoogleSignup: builder.mutation({
+      query: (data) => ({
+        url: `${Bidder_URL}/googleSignup`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -155,4 +169,6 @@ export const {
   useBidderSendStartingNotificationsMutation,
   useBidderGetAuctionRoomInfoMutation,
   useBidderUpdateAuctionRoomMutation,
+  useBidderGoogleAuthMutation,
+  useBidderGoogleSignupMutation,
 } = biddersApiSlice;

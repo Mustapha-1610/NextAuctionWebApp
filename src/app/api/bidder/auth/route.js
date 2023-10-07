@@ -7,7 +7,6 @@ connect();
 
 export async function POST(request) {
   try {
-    console.log("hello");
     const reqbody = await request.json();
 
     const { Email, Password, PhoneNumber } = reqbody;
@@ -49,9 +48,7 @@ export async function POST(request) {
       expiresIn: "30d",
     });
     const response = NextResponse.json({
-      message: "Login successful",
       bidder: BidderAccount,
-      success: true,
     });
     response.cookies.set("bidder", token, {
       httpOnly: true,

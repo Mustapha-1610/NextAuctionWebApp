@@ -5,8 +5,11 @@ import { useRouter } from "next/navigation";
 import { useBidderloginMutation } from "@/redux/BidderSlices/bidderApiSlice";
 import { setBidderCredentials } from "@/redux/BidderSlices/bidderSlice";
 import { useSendBidderActivationMailMutation } from "@/redux/BidderSlices/bidderApiSlice";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useBidderGoogleAuthMutation } from "@/redux/BidderSlices/bidderApiSlice";
 export default function Blogin() {
   const [login, { isLoading }] = useBidderloginMutation();
+  const [bidderGoogleAuth, { isAuth }] = useBidderGoogleAuthMutation();
   const [sendMail] = useSendBidderActivationMailMutation();
   const handleMailRequest = async (e, Name, Email, _id, ActivationCode) => {
     const res = await sendMail({ Name, Email, _id, ActivationCode });
@@ -21,7 +24,19 @@ export default function Blogin() {
     const res = await login({ Email, Password });
     dispatch(setBidderCredentials({ ...res.data.bidder }));
     router.push("/bidder/profile");
-    console.log(res);
+  };
+  const handleGoogleAuthSubmit = async (credentials) => {
+    try {
+      const res = await bidderGoogleAuth({ credentials });
+      if (res.data.Signed === false) {
+        router.push(`/BGoogleAuth/${credentials}`);
+      } else {
+        dispatch(setBidderCredentials({ ...res.data.bidder }));
+        router.push("/bidder/profile");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>
@@ -50,6 +65,17 @@ export default function Blogin() {
         <br />
         <button type="submit">Login</button>
       </form>
+      <GoogleOAuthProvider clientId="38309083981-csjjtl51a2m8t0bd3f3398hgo953v67k.apps.googleusercontent.com">
+        <GoogleLogin
+          onSuccess={(credentialResponse) => {
+            handleGoogleAuthSubmit(credentialResponse.credential);
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+          useOneTap
+        />
+      </GoogleOAuthProvider>
       <h5>
         Dont Have An Account ?{" "}
         <button onClick={() => router.push("/bidderSignup")}>SignUp</button>

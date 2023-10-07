@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 const user = "mustapha.talbi2002@gmail.com"; // hedhi t7ot feha l email
-const pass = "rgfrawawglvklaf";
+const pass = "lhxa ryjh kszp sejk";
 
 const transport = nodemailer.createTransport({
   service: "Gmail",
@@ -21,14 +21,15 @@ export const sendBidderConfirmationEmail = (
     .sendMail({
       from: user,
       to: email,
-      subject: "Veuillez activer votre compte ",
+      subject: "TuniBids Account Activation",
       html: `
-      <div>
-      <h1> Account Activation </h1>
-        <h2> Hello ${name} </h2>
-        <p> Click below to active your account</p>
-        <a href="http://localhost:3000/index/bidder/activation/${BidderId}/${ActivationCode}">Click Here</a>
-        </div>`,
+      <div style="font-family: Arial, sans-serif; font-size: 16px;">
+  <h1>TuniBids Account Activation</h1>
+  <img src="https://firebasestorage.googleapis.com/v0/b/tunibids.appspot.com/o/OIG.TIxJyC2EdW2GBKQEO%20(1).jpg?alt=media&token=9d76c959-ea06-4b7a-9df5-2526750040e1&_gl=1*14fxoko*_ga*MTU1NzQ5MzYxMC4xNjk2NjgwMjU2*_ga_CW55HF8NVT*MTY5NjY4MjY0Ni4yLjEuMTY5NjY4MzA4MS4zNS4wLjA." style="max-width: 600px; max-height: 320px;">
+  <h3>Welcome to TuniBids! To activate your account, please click the button below.</h3>
+  <a href="https://auctionwebapp-liard.vercel.app//Bactivation/${BidderId}/${ActivationCode}" style="background-color: #E14F76; border: 1px solid #007bff; color: white; padding: 10px 20px; text-decoration: none;">Click Here</a>
+  <p>Thank you for choosing TuniBids!</p>
+</div>`,
     })
     .catch((err) => console.log(err));
 };

@@ -16,7 +16,6 @@ const bidderSchema = new Schema({
   },
   Password: {
     type: String,
-    required: true,
     minLength: 6,
   },
   ProfilePicture: {
@@ -114,6 +113,10 @@ const bidderSchema = new Schema({
     type: String,
     default:
       "https://firebasestorage.googleapis.com/v0/b/tunibids.appspot.com/o/Windows_10_Default_Profile_Picture.svg.png?alt=media&token=e7aca30d-6eea-45ff-8522-db048fcb8c38",
+  },
+  GmailAccount: {
+    type: Boolean,
+    default: false,
   },
 });
 let bidder;
