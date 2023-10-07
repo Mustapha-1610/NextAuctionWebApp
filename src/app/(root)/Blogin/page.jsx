@@ -123,7 +123,7 @@ export default function Blogin() {
             </GoogleOAuthProvider>
           </div>
           <h5 className="mt-4 text-center">
-            Don't Have An Account?{" "}
+            Dont Have An Account ?
             <button
               onClick={() => router.push("/Bsignup")}
               className="text-blue-500"
