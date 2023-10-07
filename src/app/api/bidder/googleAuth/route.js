@@ -20,8 +20,8 @@ export async function POST(request) {
       id: Bidder._id,
     };
     //create token
-    const jwtoken = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {
-      expiresIn: "30d",
+    const jwtoken = jwt.sign(tokenData, process.env.TOKEN_SECRET, {
+      expiresIn: "120d",
     });
     const response = NextResponse.json({
       bidder: Bidder,

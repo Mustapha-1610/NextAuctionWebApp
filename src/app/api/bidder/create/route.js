@@ -30,13 +30,13 @@ export async function POST(request) {
       !PhoneNumber ||
       !BirthDate
     ) {
-      return NextResponse.json({ message: "Missing input" });
+      return NextResponse.json({ error: "Missing input(s)" });
     }
     let existingBidder = await bidder.findOne({
       $or: [{ Email }, { PhoneNumber }],
     });
     if (existingBidder) {
-      return NextResponse.json({ message: "Account Exists Allready !" });
+      return NextResponse.json({ error: "Account Exists Allready !" });
     }
     const securePassword = bcrypt.hashSync(Password);
     const characters =

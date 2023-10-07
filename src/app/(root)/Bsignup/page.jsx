@@ -2,8 +2,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useBiddersignupMutation } from "../../../redux/BidderSlices/bidderApiSlice";
+import Loader from "@/app/components/Loader";
 const SignupPage = () => {
   const [signup, { isLoading }] = useBiddersignupMutation();
+  const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
     Name: "",
     Surname: "",
@@ -17,9 +19,14 @@ const SignupPage = () => {
   });
   const formSubmitHandler = async (e) => {
     try {
+      setMessage(<Loader />);
       e.preventDefault();
       const res = await signup(form);
-      console.log(res);
+      if (res.data.success) {
+        setMessage(res.data.success);
+      } else if (res.data.error) {
+        setMessage(res.data.error);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -30,10 +37,11 @@ const SignupPage = () => {
       [e.target.name]: e.target.value,
     });
   };
-  useEffect(() => {}, []);
   return (
     <>
       <form onSubmit={formSubmitHandler}>
+        <h2>{message}</h2>
+        <br />
         Name :
         <input type="text" name="Name" onChange={(e) => handleFormChange(e)} />
         <br />

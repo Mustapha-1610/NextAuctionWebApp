@@ -14,12 +14,12 @@ export async function POST(request) {
       !reqbody.City ||
       !reqbody.FullAdress
     ) {
-      return NextResponse.json({ error: "Missing Input" });
+      return NextResponse.json({ error: "Missing Input(s)" });
     }
     let Bidder = await bidder.findOne({ PhoneNumber: reqbody.PhoneNumber });
     if (Bidder) {
       return NextResponse.json({
-        error: "Account with same phone number exists allready",
+        error: "Account with same phone number exists allready!",
       });
     }
     const token = jwt.decode(reqbody.credentials);
@@ -43,9 +43,20 @@ export async function POST(request) {
       ProfilePicture: token.picture,
       GmailAccount: true,
     });
-    return NextResponse.json({
-      success: "Account successfully created. Verification email sent.",
+    const tokenData = {
+      id: Bidder._id,
+    };
+    //create token
+    const jwtoken = jwt.sign(tokenData, process.env.TOKEN_SECRET, {
+      expiresIn: "120d",
     });
+    const response = NextResponse.json({
+      bidder: Bidder,
+    });
+    response.cookies.set("bidder", jwtoken, {
+      httpOnly: true,
+    });
+    return response;
   } catch (error) {
     console.log(error);
     return NextRequest.json({ status: 500, data: error });

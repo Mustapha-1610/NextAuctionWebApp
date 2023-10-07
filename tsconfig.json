@@ -28,8 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/signup/page.jsx",
-    "src/app/api/bidder/createBidder/route.js",
-    "src/app/api/bidder/createBidder/route.js",
+    "src/app/api/bidder/create/route.js",
+    "src/app/api/bidder/create/route.js",
     "src/app/api/bidder/auth/route.js"
   ],
   "exclude": ["node_modules"]

@@ -25,12 +25,12 @@ export async function POST(request) {
     const passwordcheck = bcrypt.compareSync(Password, BidderAccount.Password);
     if (!passwordcheck) {
       return NextResponse.json({
-        Message: "Invalid email or password !",
+        error: "Invalid email or password !",
       });
     }
     if (BidderAccount.ActivationStatus === false) {
       return NextResponse.json({
-        mailError: "You need to verify your email first before logging in !",
+        mailError: "You need to verify your email first before logging in . ",
         Name: BidderAccount.Name,
         Email: BidderAccount.Email,
         _id: BidderAccount._id,
@@ -38,14 +38,14 @@ export async function POST(request) {
       });
     }
     if (BidderAccount.ActivenessStatus === false) {
-      res.status(401).json({ Message: "This Account Is Disabled" });
+      res.status(401).json({ error: "This Account Is Disabled" });
     }
     const tokenData = {
       id: BidderAccount._id,
     };
     //create token
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {
-      expiresIn: "30d",
+      expiresIn: "120d",
     });
     const response = NextResponse.json({
       bidder: BidderAccount,
