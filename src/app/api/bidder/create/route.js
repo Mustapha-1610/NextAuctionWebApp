@@ -58,7 +58,7 @@ export async function POST(request) {
       BirthDate,
       ActivationCode,
     });
-    sendBidderConfirmationEmail(
+    await sendBidderConfirmationEmail(
       existingBidder.Name,
       existingBidder.Email,
       existingBidder._id,

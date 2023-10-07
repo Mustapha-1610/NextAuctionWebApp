@@ -39,80 +39,95 @@ const SignupPage = () => {
   };
   return (
     <>
-      <form onSubmit={formSubmitHandler}>
-        <h2>{message}</h2>
-        <br />
-        Name :
-        <input type="text" name="Name" onChange={(e) => handleFormChange(e)} />
-        <br />
-        <br />
-        <br />
-        Surname :{" "}
-        <input
-          type="text"
-          name="Surname"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <br />
-        <br />
-        Email :{" "}
-        <input
-          type="Email"
-          name="Email"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <br />
-        <br />
-        Password :{" "}
-        <input
-          type="password"
-          name="Password"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <br />
-        <br />
-        State :{" "}
-        <input type="text" name="State" onChange={(e) => handleFormChange(e)} />
-        <br />
-        <br />
-        <br />
-        City :{" "}
-        <input type="text" name="City" onChange={(e) => handleFormChange(e)} />
-        <br />
-        <br />
-        <br />
-        FullAdress :{" "}
-        <textarea
-          type="text"
-          name="FullAdress"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <br />
-        <br />
-        PhoneNumber :{" "}
-        <input
-          type="number"
-          name="PhoneNumber"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <br />
-        <br />
-        BirthDate :{" "}
-        <input
-          type="date"
-          name="BirthDate"
-          onChange={(e) => handleFormChange(e)}
-        />
-        <br />
-        <br />
-        <br />
-        <button type="sumbit">SignUp</button>
-      </form>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <form onSubmit={formSubmitHandler} className="w-1/2 space-y-2">
+          <h2 className="text-2xl font-bold text-center">{message}</h2>
+          <div className="flex flex-col space-y-4">
+            <label>
+              Name:
+              <input
+                type="text"
+                name="Name"
+                onChange={(e) => handleFormChange(e)}
+                className="w-full px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+              />
+            </label>
+          </div>
+          <div className="flex flex-col space-y-4">
+            Surname :{" "}
+            <input
+              type="text"
+              name="Surname"
+              onChange={(e) => handleFormChange(e)}
+              className="w-full px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+            />
+          </div>
+          <div className="flex flex-col space-y-4">
+            Email :{" "}
+            <input
+              type="Email"
+              name="Email"
+              onChange={(e) => handleFormChange(e)}
+              className="w-full  px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+            />
+          </div>
+          <div className="flex flex-col space-y-4">
+            Password :{" "}
+            <input
+              type="password"
+              name="Password"
+              onChange={(e) => handleFormChange(e)}
+              className="w-full  px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+            />
+          </div>
+          <div className="flex flex-col space-y-4">
+            State :{" "}
+            <input
+              type="text"
+              name="State"
+              onChange={(e) => handleFormChange(e)}
+              className="w-full  px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+            />
+          </div>
+          <div className="flex flex-col space-y-4">
+            City :{" "}
+            <input
+              type="text"
+              name="City"
+              onChange={(e) => handleFormChange(e)}
+              className="w-full  px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+            />
+          </div>
+          <div className="flex flex-col space-y-4">
+            FullAdress :{" "}
+            <textarea
+              type="text"
+              name="FullAdress"
+              onChange={(e) => handleFormChange(e)}
+              className="w-full  px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+            />
+          </div>
+          <div className="flex flex-col space-y-4">
+            PhoneNumber :{" "}
+            <input
+              type="number"
+              name="PhoneNumber"
+              onChange={(e) => handleFormChange(e)}
+              className="w-full  px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+            />
+          </div>
+          <div className="flex flex-col space-y-4">
+            BirthDate :{" "}
+            <input
+              type="date"
+              name="BirthDate"
+              onChange={(e) => handleFormChange(e)}
+              className="w-full  px-1 py-1 mt-1 text-black placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+            />
+          </div>
+          <button type="sumbit">SignUp</button>
+        </form>
+      </div>
     </>
   );
 };
