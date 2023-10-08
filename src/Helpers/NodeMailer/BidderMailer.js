@@ -10,14 +10,14 @@ const transport = nodemailer.createTransport({
   },
 });
 //fonction te5ou 3 parametres
-export const sendBidderConfirmationEmail = (
+export const sendBidderConfirmationEmail = async (
   name,
   email,
   BidderId,
   ActivationCode
 ) => {
   // transport houwa jesr from chkoun to amal  html body message chnouwa f wostou
-  transport
+  await transport
     .sendMail({
       from: user,
       to: email,
