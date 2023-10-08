@@ -52,6 +52,8 @@ export async function POST(request) {
     });
     response.cookies.set("bidder", token, {
       httpOnly: true,
+      sameSite: "None", // Add this
+      secure: true, // And this
     });
     return response;
   } catch (err) {

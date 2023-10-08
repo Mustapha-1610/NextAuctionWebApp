@@ -26,8 +26,10 @@ export async function POST(request) {
     const response = NextResponse.json({
       bidder: Bidder,
     });
-    response.cookies.set("bidder", jwtoken, {
+    response.cookies.set("bidder", token, {
       httpOnly: true,
+      sameSite: "None", // Add this
+      secure: true, // And this
     });
     return response;
   } catch (error) {

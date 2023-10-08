@@ -8,6 +8,8 @@ export async function GET() {
     response.cookies.set("bidder", "", {
       httpOnly: true,
       expires: new Date(0),
+      sameSite: "None", // Add this
+      secure: true, // And this
     });
     return response;
   } catch (error) {
